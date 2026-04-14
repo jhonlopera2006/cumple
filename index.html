@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBD</title>
+<style>
+	
+@import url('https://fonts.googleapis.com/css?family=Nobile:400italic,700italic');
+
+:root {
+--border-color: #f9f9f9;
+--vanilla: #FF69B4;
+--chocolate: #9B59B6;
+}
+
+html, body {
+overflow: hidden;
+background-color: #FF6B6B;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.card {
+position: relative;
+width: 390px;
+height: 550px;
+border: 10px solid var(--border-color);
+margin: 0;
+box-shadow: inset 10px 0px 15px 0px rgba(0,0,0,0.1);
+background-color: rgb(230, 190, 250);
+}
+
+.card .text-container {
+width: 80%;
+height: 80%;
+margin: auto;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.card .text-container #head {
+font-family: 'Nobile', sans-serif;
+font-size: 2.5em;
+margin: 20px auto 30px auto;
+background: linear-gradient(135deg, #ed0d7d, #E74C3C, #210404,
+#d14119, #e33606);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.card .text-container > div {
+text-align: center;
+font-family: 'Nobile';
+color: #580803;
+font-style: italic;
+line-height: 1.6;
+}
+
+.card p {
+font-size: 1.4em;
+line-height: 1.6;
+font-family: 'Nobile';
+color: #580803;
+font-style: italic;
+text-align: center;
+margin: 20px auto 0px auto;
+}
+
+.card .front {
+position: absolute;
+width: 100%;
+height: 100%;
+margin: -10px 0px 0px -10px;
+border: 10px solid var(--border-color);
+backface-visibility: hidden;
+background-color: rgb(207, 45, 240);
+background-size: contain;
+transform-style: preserve-3d;
+transform-origin: 0% 50%;
+transform: perspective(800px) rotateY(0deg);
+transition: all 0.8s ease-in-out;
+}
+
+.hover-text {
+position: absolute;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+font-family: 'Nobile', sans-serif;
+font-size: 24px;
+color: rgb(255, 255, 255);
+text-shadow: 2px 2px 3px rgba(194, 231, 29, 0.5);
+z-index: 10;
+transition: 0.4s;
+}
+.card:hover .hover-text {
+opacity: 0;
+}
+
+.card:hover .front {
+transform: perspective(800px) rotateY(-170deg);
+background-color: rgb(255, 130, 130);
+} 
+
+.card:hover .back {
+transform: perspective(800px) rotateY(-170deg);
+box-shadow: 7px 0px 5px 0px rgba(0,0,0,0.3), inset 2px 0px 15px 0px rgba(0,0,0,0.1);
+background-color: rgb(230, 190, 250);
+}
+
+.card .back {
+position: absolute;
+width: 100%;
+border: 10px solid var(--border-color);
+height: 100%;
+margin: -10px 0px 0px -10px;
+backface-visibility: visible;
+filter: drop-shadow 2px 2px 4px rgba(0,0,0,.5);
+transform-style: preserve-3d;
+transform-origin: 0% 50%;
+transform: perspective(800px) rotateY(0deg);
+transition: all 0.8s ease-in-out;
+background-color: rgb(230, 190, 250);
+box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.1);
+}
+
+.cover-shape-large {
+position: absolute;
+width: 55%;
+height: 40%;
+top: 28%;
+left: 23%;
+}
+
+.cover-shape-large.shape-block,
+.cover-shape-large.shape-diamond {
+background-color: #FF6984;
+}
+
+.cover-shape-small {
+position: absolute;
+width: 40%;
+height: 28%;
+top: 35%;
+left: 30%;
+}
+
+.shape-block {
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: white;
+border-radius: 50px;
+box-shadow: 0 0 20px 0 rgba(0,0,0,0.5);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+}
+
+.shape-diamond {
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: white;
+box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+transform: rotateZ(45deg);
+}
+
+.cake {
+position: absolute;
+width: 100px;
+height: 80px;
+top: 50%;
+left: 50%;
+margin-top: -28px;
+margin-left: -50px;
+}
+
+.layer {
+position: absolute;
+display: block;
+width: 100px;
+height: 40px;
+border-radius: 50%;
+background-color: var(--chocolate);
+}
+
+.layer-top { top: 0px; }
+.layer-middle { top: 13.2px; }
+.layer-bottom { top: 26.4px; }
+
+.icing {
+top: 0.8px;
+left: 2px;
+background-color: var(--vanilla);
+width: 96px;
+height: 36px;
+border-radius: 50%;
+position: absolute;
+}
+
+.drip {
+display: block;
+width: 20px;
+height: 24px;
+border-bottom-left-radius: 25px;
+border-bottom-right-radius: 25px; 
+background-color: var(--vanilla);
+position: absolute;
+}
+
+.drip1 {
+top: 22px;
+left: 2px;
+transform: skewY(15deg);
+height: 19.2px;
+width: 16px;
+}
+
+.drip2 {
+top: 30px;
+left: 72.4px;
+transform: skewY(-15deg);
+}
+
+.drip3 {
+top: 33.6px;
+left: 36px;
+width: 32px;
+border-bottom-left-radius: 40px;
+border-bottom-right-radius: 40px;
+}
+
+.candle {
+background-color: #985986;
+width: 6.4px;
+height: 20px;
+border-radius: 8px / 4px;
+top: -8px;
+left: 50%;
+margin-left: -3.2px;
+position: absolute;
+}
+
+.candle::before {
+content:"";
+position: absolute;
+top: 0;
+left: 0;
+width: 6.4px;
+height: 3.2px;
+border-radius: 50%;
+background-color: #FFA500;
+}
+
+.flame {
+position: absolute;
+background-color: #FF6B35;
+width: 6px;
+height: 14px;
+border-radius: 10px 10px 10px 10px / 25px 25px 10px 10px;
+top: -13.6px;
+left: 50%;
+margin-left: -3px;
+animation: flicker 1s ease-in-out infinite;
+}
+
+@keyframes flicker {
+0% { transform: scale(1); }
+50% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<div class="back"></div>
+
+<div class="front">
+<div class="hover-text">Hover To Open</div>
+
+<div class="cover-shape-large">
+<div class="shape-diamond"></div>
+<div class="shape-block"></div>
+</div>
+
+<div class="cover-shape-small">
+<div class="shape-diamond"></div>
+
+<div class="shape-block">
+<div class="cake">
+
+<div class="layer layer-bottom"></div>
+<div class="layer layer-middle"></div>
+<div class="layer layer-top"></div>
+
+<div class="icing"></div>
+
+<div class="drip drip1"></div>
+<div class="drip drip2"></div>
+<div class="drip drip3"></div>
+
+<div class="candle">
+<div class="flame"></div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="text-container">
+<p id="head">feliz cumple Nuela</p>
+<div>Perdóname de verdad por q se me haya pasado tu cumple, pero quiero que sepas que aunque se me haya pasado la fecha, mi cariño por ti sigue siendo lo más real que tengo; eres la única persona que siempre voy a elegir por encima de todo y de todos, porque mi vida es mucho más bonita desde que tú estás en ella. Gracias por tu paciencia y por ser ese lugar donde siempre me siento a salvo; más que celebrarte un solo día, quiero estar todo lo que falta de año agradeciéndote que existas y demostrándote que sin importar los errores que cometo, siempre voy a estar para ti porque tenerte como mejor amiga es el regalo más grande que me ha dado la vida.</p>
+</div>
+
+</div>
+
+</body>
+</html>
